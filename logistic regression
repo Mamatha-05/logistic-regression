@@ -1,0 +1,53 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Generate synthetic classification data
+x, y = make_classification(n_samples=2000, n_features=2, n_classes=2,
+                           n_informative=2, n_redundant=0, class_sep=2.0, random_state=42)
+
+# Split the dataset into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+# Create and train the logistic regression model
+model = LogisticRegression()
+model.fit(x_train, y_train)
+
+# Predict on the test data
+y_pred = model.predict(x_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+class_report = classification_report(y_test, y_pred)
+
+# Print evaluation metrics
+print(f"Accuracy: {accuracy:.2f}")
+print("Confusion Matrix:")
+print(conf_matrix)
+print("Classification Report:")
+print(class_report)
+
+# Plotting decision boundary
+plt.figure(figsize=(8, 6))
+plt.scatter(x[:, 0], x[:, 1], c=y, cmap='viridis', edgecolor='k', s=20)
+
+ax = plt.gca()
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+xx, yy = np.meshgrid(np.linspace(xlim[0], xlim[1], 100),
+                     np.linspace(ylim[0], ylim[1], 100))
+
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
+plt.title("Logistic Regression Decision Boundary")
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
