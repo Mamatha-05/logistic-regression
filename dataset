@@ -1,0 +1,21 @@
+Output:
+First 5 rows of the dataset (Before Scaling):
+    	   Feature 1	     Feature 2    	Target
+0	       1.80062	      -1.957489	       1
+1      	2.181099	       2.159181	       1
+2     	-8.845488	       2.217520	       0
+3	       1.119014        -1.852832    	 1
+4	       -1.135827	      0.754634       0
+  
+First 5 rows of scaled training data:
+  	Feature 1 (scaled)	Feature 2 (scaled)	   Target
+0   	-1.002427          -0.792813	              0
+1	    -0.125878	          1.300546	              0
+2	    -0.458149	          1.0019469           	  0
+3	    -0.921127           1.039763              	0
+4	     1.051047           0.723828	              1
+  
+Accuracy: 0.9925
+Confusion Matrix:
+[[182   0]
+ [  3 215]]
